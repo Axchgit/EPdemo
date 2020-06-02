@@ -39,29 +39,27 @@ class Admin extends Model
         return $insert_num;
     }
     //从excel文件中批量插入员工信息
-    public function insertStaff($file_excel)
+    public function insertStaffFromExcel($file_excel)
     {
         $dataArr = $this->getExcelData($file_excel);
         // halt($dataArr);
         $staff = [];
         foreach ($dataArr as $k => $v) {
-            $staff[$k]['goods_id'] = $v['D'];
-            $staff[$k]['staff_name'] = $v['C'];
-            $staff[$k]['order_number'] = $v['B'];
-            $staff[$k]['payment_time'] = $v['A'];
-            $staff[$k]['shop_id'] = $v['E'];
-            $staff[$k]['leader_nickname'] = $v['F'];
-            $staff[$k]['leader_duoid'] = $v['G'];
-            $staff[$k]['salesman_nickname'] = $v['H'];
-            $staff[$k]['salesman_duoid'] = $v['I'];
-            $staff[$k]['order_status'] = $v['J'];
-            $staff[$k]['order_amount'] = $v['K'] * 100;     //*100 让数据以整数存储
-            $staff[$k]['salesman_commission'] = $v['L'] * 100;
-            $staff[$k]['leader_commission'] = $v['M'] * 100;
-            $staff[$k]['leader_income'] = $v['N'] * 100;
+            $staff[$k]['work_num'] = $v['A'];
+            $staff[$k]['staff_name'] = $v['B'];
+            $staff[$k]['email'] = $v['C'];
+            $staff[$k]['password'] = $v['D'];
+            $staff[$k]['nick_name'] = $v['E'];
+            $staff[$k]['avatar'] = $v['F'];
+            // $staff[$k]['birthday'] = $v['G'];
+            $staff[$k]['sex'] = $v['H'];
+            $d = 25569;
+            $t = 24 * 60 * 60;
+            $date = gmdate('Y-m-d', ($v['G'] - $d) * $t);
+            $staff[$k]['birthday'] = $date;
             break;
         }
-        // return $staff;
+        return $staff;
         $insert_num =  Db::name('staff')
             ->limit(100)
             ->insertAll($staff);
