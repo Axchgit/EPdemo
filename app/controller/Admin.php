@@ -4,56 +4,55 @@ namespace app\controller;
 
 use think\facade\View;
 use app\model\Admin as AdminModel;
+use app\model\Goods as GoodsModel;
+use app\model\Staff as StaffModel;
+use app\model\Goods;
 use app\validate\Admin as AdminValidate;
 
 class Admin
 {
 
-    public function insertGoods()
+    /** 
+     * insertGoodsFromExcel 
+     * 
+     * 从excel文件中获取商品信息插入数据库
+     * 
+     * @param string $files
+     * @return html('upload_excel','staff_list')
+     */
+
+    public function insertGoodsFromExcel()
     {
         if (isset($_POST['submit'])) {
-            // 获取表单上传文件 例如上传了001.jpg
+            // 获取表单上传文件
             $files = request()->file('file_excel');
-            // 上传到本地服务器
-            try {
-                validate(['file' => 'fileSize:10240000|fileExt:xlsx,xls'])
-                    ->check(['file' => $files]);
-                $file_excel = [];
-                // foreach ($files as $file) {
-                $file_excel = \think\facade\Filesystem::disk('public')->putFile('topic', $files);
-                // }
-            } catch (\think\exception\ValidateException $e) {
-                echo $e->getMessage() . '/文件必须是Excel格式';
-            }
-            $insertGoods = new AdminModel();
-            $data = $insertGoods->insertGoods($file_excel);
-            // // var_dump($data);
-            // halt($data);
+            $insertGoods = new GoodsModel();
+            $data = $insertGoods->insertGoodsFromExcel($files);
+            // var_dump($data);
+            halt($data);
             View::assign('data', $data);
-            return View::fetch('staff_list');
+            return View::fetch('goods_list');
         }
         return View::fetch('upload_excel');
     }
 
+    /** 
+     * insertStaffFromExcel 
+     * 
+     * 从excel文件中获取商品信息插入数据库
+     * 
+     * @param string $files
+     * @return html('upload_staff_excel','staff_list')
+     */
+    //从excel中获取员工信息插入数据库
     public function insertStaffFromExcel()
     {
 
         if (isset($_POST['submit'])) {
-            // 获取表单上传文件 例如上传了001.jpg
+            // 获取表单上传文件
             $files = request()->file('file_excel');
-            // 上传到本地服务器
-            try {
-                validate(['file' => 'fileSize:10240000|fileExt:xlsx,xls'])
-                    ->check(['file' => $files]);
-                $file_excel = [];
-                // foreach ($files as $file) {
-                $file_excel = \think\facade\Filesystem::disk('public')->putFile('topic', $files);
-                // }
-            } catch (\think\exception\ValidateException $e) {
-                echo $e->getMessage() . '/文件必须是Excel格式';
-            }
-            $insert = new AdminModel();
-            $data = $insert->insertStaffFromExcel($file_excel);
+            $insertStaff = new StaffModel();
+            $data = $insertStaff->insertStaffFromExcel($files);
             // // var_dump($data);
             // halt($data);
             View::assign('data', $data);
@@ -62,10 +61,30 @@ class Admin
         return View::fetch('upload_staff_excel');
     }
 
+    /** 
+     * insertAchievement
+     * 
+     * 从excel文件中获取商品信息插入数据库
+     * 
+     * @param string $files
+     * @return html('upload_excel','staff_list')
+     */
+
+    public function insertAchievement()
+    {
+        if (isset($_POST['submit'])) {
+        }
+        return View::fetch('insert_order_number');
+    }
+
 
 
     public function test()
     {
         return time();
     }
+
+
+
+    //类结束
 }
