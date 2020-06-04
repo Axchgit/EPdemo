@@ -1,0 +1,12 @@
+1.git pull tp6 的项目后，需要用composer下载tp6核心文件到项目根目录
+
+2. .eva 文件git没上传，复制过来即可
+
+3.模板文件渲染出错，需要用composer安装：‘如果你需要使用think-template模板引擎，只需要安装think-view 模板引擎驱动。’
+composer require topthink/think-view
+
+4.安装PHPExcel
+composer require phpoffice/phpexcel
+
+5.验证用户输入
+用前端页面js正则验证
