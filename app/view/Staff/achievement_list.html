@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工个人业绩信息</title>
+</head>
+
+<body>
+    {volist name="data" id="vo"}
+    <table width="99%" border="5" cellspacing="0" cellpadding="0">
+        <tr>
+            <th>工号</th>
+            <th>邮箱</th>
+            <th>姓名</th>
+            <th>昵称</th>
+            <th>性别</th>
+        </tr>
+        <tr>
+            <td>{$vo.work_num}</td>
+            <td>{$vo.email}</td>
+            <td>{$vo.staff_name}</td>
+            <td>{$vo.nick_name}</td>
+            <td>{$vo.sex}</td>
+
+        </tr>
+    </table>
+
+    {/volist}
+</body>
+
+</html>

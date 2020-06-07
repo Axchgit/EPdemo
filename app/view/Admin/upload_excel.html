@@ -8,7 +8,15 @@
 </head>
 
 <body>
+    <h1>插入原始表文件</h1>
     <form action="insertGoodsFromExcel" method="post" enctype="multipart/form-data">
+        <!-- <p>上传excel文件</p><input type="file" value="上传excel文件"> -->
+        <p>选择Excel文件</p>
+        <input type="file" name="file_excel">
+        <input type="submit" value="确认提交" name="submit">
+    </form>
+    <h1>插入临时表文件</h1>
+    <form action="insertGoodsTempFromExcel" method="post" enctype="multipart/form-data">
         <!-- <p>上传excel文件</p><input type="file" value="上传excel文件"> -->
         <p>选择Excel文件</p>
         <input type="file" name="file_excel">

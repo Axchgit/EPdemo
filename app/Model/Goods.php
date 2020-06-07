@@ -4,12 +4,14 @@ namespace app\model;
 
 use PHPExcel_IOFactory;
 use think\Model;
+use app\model\GoodsTemp as GoodsTempModel;
 use think\facade\Db;
 
 
 class Goods extends Model
 {
-
+    
+    
     /** 
      * insertGoodsFromExcel 
      * 
@@ -36,6 +38,10 @@ class Goods extends Model
         // halt($dataArr);
         $goods = [];
         foreach ($dataArr as $k => $v) {
+            $count = strpos($v['B'], "-");
+            $strlen = strlen('-');
+            $goods[$k]['id'] = substr_replace($v['B'], "", $count, $strlen);
+            // $goods[$k]['order_number'] = '123';
             $goods[$k]['goods_id'] = $v['D'];
             $goods[$k]['goods_name'] = $v['C'];
             // $goods[$k]['order_number'] = $v['B'];
@@ -50,30 +56,97 @@ class Goods extends Model
             $goods[$k]['salesman_commission'] = $v['L'] * 100;
             $goods[$k]['leader_commission'] = $v['M'] * 100;
             $goods[$k]['leader_income'] = $v['N'] * 100;
-            $count = strpos($v['B'], "-");
-            $strlen = strlen('-');
-            $goods[$k]['order_number'] = substr_replace($v['B'], "", $count, $strlen);
+
             // break;
         }
-        // return $goods;
-        //启动事务
-        Db::startTrans();
-        try {
-            $this->saveAll($goods);
-            // $insert_num =  Db::name('goods')
-            //     ->limit(100)
-            //     ->insertAll($goods);
-            // 提交事务
-            Db::commit();
-        } catch (\Exception $e) {
-            // 回滚事务
-            Db::rollback();
-            return '失败';
+        //获取数组最小下标
+        for ($n = 0; $n < 100; $n++) {
+            if (array_key_exists($n, $goods)) {
+                break;
+            }
         }
+        //遍历新增
+        for ($n; $n <= $k; $n++) {
+            $this->create($goods[$n]);
+        }
+        // halt($goods);
+        // return $goods[2];
+        //启动事务
+        // Db::startTrans();
+        // try {
+        // $this->saveAll($goods);
+        // 提交事务
+        // Db::commit();
+        // } catch (\Exception $e) {
+        // 回滚事务
+        // Db::rollback();
+        // return '失败';
+        // }
 
         return '成功';
     }
 
+
+    /** 
+     * insertGoodsFromExcel 
+     * 
+     * 增量更新数据 
+     * 
+     * @param 
+     * @return  
+     */
+
+    public function incrementalUpdata()
+    {
+
+
+        /*更新数据*/
+        //查询重复数据
+        $same = Db::view(['goods' => 'a'], 'id,goods_id', 'a.id = b.id')
+            ->view(['goods_temp' => 'b'])
+            // ->where('a.order_number'=='b.order_number')
+            ->select()->toArray();
+
+        //更新语句
+        // $this->saveAll($same);
+
+        //删除临时表里的重复数据
+        foreach ($same as $k => $v) {
+            Db::table('goods_temp')->where('id', $v['id'])->delete();
+        }
+
+        /*插入新增数据*/
+
+        //查询剩余数据
+        $data = Db::table('goods_temp')->select()->toArray();
+
+        //删除临时表里的剩余数据
+        foreach ($data as $k => $v) {
+            Db::table('goods_temp')->where('id', $v['id'])->delete();
+        }
+        //获取数组最小下标
+        for ($n = 0; $n < 100; $n++) {
+            if (array_key_exists($n, $data)) {
+                break;
+            }
+        }
+        //插入新增数据到goods
+        for ($n; $n <= $k; $n++) {
+            // $this->save($goods[$n]);
+            $this->create($data[$n]);
+        }
+        return '成功';
+    }
+
+
+
+
+
+
+
+
+
+    
     /** 
      * getExcelData 
      * 
@@ -82,7 +155,6 @@ class Goods extends Model
      * @param string $file_excel
      * @return array $dataArr
      */
-
     public function getExcelData($file_excel)
     {
         /*读取excel文件，并进行相应处理*/
@@ -107,7 +179,6 @@ class Goods extends Model
         }
         return $dataArr;
     }
-
 
 
 

@@ -54,7 +54,7 @@ CREATE TABLE staff (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工信息表';
 
 
-CREATE TABLE goods (
+CREATE TABLE goods_temp (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `goods_id` bigint(20) NOT NULL default '0' COMMENT '商品id',
   `goods_name` varchar(200) NOT NULL default '' COMMENT '商品名称',
@@ -76,7 +76,7 @@ CREATE TABLE goods (
   UNIQUE KEY `uq_goods_id` (`goods_id`),
   KEY `idx_goods_id`(`goods_id`),
   KEY `idx_create_time`(`create_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='推广商品明细';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='推广商品明细临时表';
 
 
 CREATE TABLE staff (

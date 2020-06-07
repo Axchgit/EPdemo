@@ -24,6 +24,7 @@ class Staff extends BaseController
     public function insertAchievement()
     {
         if (isset($_POST['submit'])) {
+            //TODO:同时插入多行数据
             $work_num = '0001';
             $insert_data = $_POST;
             $insert_data['work_num'] = $work_num;
@@ -32,12 +33,25 @@ class Staff extends BaseController
             $data = $insertAchievement->insertAchievement($insert_data);
             
             return $data;  //调试语句
+            // View::assign('data', $data);
             
             return View::fetch('achievement_list');
 
         }
-        return View::fetch('insert_order_number');
+        return View::fetch('insert_goods_id');
     }
+
+    public function achievementList(){
+        $work_num = '0001';
+        $achievement = new AchievementModel();
+        $data = $achievement->getAchievementData($work_num);
+
+        
+    }
+
+
+
+
 
     //调试函数
     public function test(){

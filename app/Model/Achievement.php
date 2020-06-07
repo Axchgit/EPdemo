@@ -18,14 +18,12 @@ class Achievement extends Model
     public function insertAchievement($insert_data)
     {
 
-        // $this = new Staff();
-
         //启动事务
         Db::startTrans();
         try {
             $this->save([
                 'work_num' => $insert_data['work_num'],
-                'order_number' => $insert_data['order_number']
+                'goods_id' => $insert_data['goods_id']
             ]);
             // 提交事务
             Db::commit();
@@ -37,4 +35,20 @@ class Achievement extends Model
 
         return '插入成功';
     }
+
+    public function getAchievementData($work_num)
+    {
+
+        $data = Db::table('achievement')
+            // ->field('user_id,username,max(score)')
+            ->where('work_num')
+            ->group('user_id')
+            ->select();
+    }
+
+
+
+
+
+    //结束
 }

@@ -14,6 +14,6 @@ Route::get('think', function () {
     return 'hello,ThinkPHP6!';
 });
 
-Route::get('hello/:name', 'Index/hello');
+// Route::get('hello/:name', 'Index/hello');
 
-Route::get('test/:id','Address/test');
+// Route::get('test/:id','Address/test');
