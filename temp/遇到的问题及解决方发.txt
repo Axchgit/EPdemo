@@ -10,3 +10,6 @@ composer require phpoffice/phpexcel
 
 5.验证用户输入
 用前端页面js正则验证
+
+6.安装PHPMail
+composer require phpmailer/phpmailer

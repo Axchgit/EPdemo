@@ -8,8 +8,6 @@ use app\model\Goods as GoodsModel;
 
 class Staff extends Model
 {
-
-
     /** 
      * insertStaffFromExcel 
      * 

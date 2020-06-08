@@ -7,8 +7,6 @@ use app\model\Admin as AdminModel;
 use app\model\Goods as GoodsModel;
 use app\model\GoodsTemp as GoodsTempModel;
 use app\model\Staff as StaffModel;
-use app\model\Goods;
-use app\validate\Admin as AdminValidate;
 
 class Admin
 {
@@ -19,7 +17,7 @@ class Admin
      * 从excel文件中获取商品信息插入数据库
      * 
      * @param string $files
-     * @return html('upload_excel','staff_list')
+     * @return mixed
      */
 
     public function insertGoodsFromExcel()
@@ -43,7 +41,7 @@ class Admin
      * 从excel文件中获取更新商品信息插入数据库
      * 
      * @param string $files
-     * @return html('upload_excel','staff_list')
+     * @return mixed
      */
     public function insertGoodsTempFromExcel()
     {
@@ -66,7 +64,7 @@ class Admin
      * 从excel文件中获取商品信息插入数据库
      * 
      * @param string $files
-     * @return html('upload_staff_excel','staff_list')
+     * @return mixed
      */
     public function insertStaffFromExcel()
     {

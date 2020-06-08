@@ -7,7 +7,6 @@ use think\Model;
 use think\facade\Db;
 use app\model\Goods as GoodsModeo;
 
-
 class Test extends Model
 {
 
@@ -59,10 +58,9 @@ class Test extends Model
         return '成功';
     }
 
-    public function insertDb(){
-        $list = [
-
-        ];
+    public function insertDb()
+    {
+        $list = [];
         $data = [
             ['foo' => 'bar', 'bar' => 'foo'],
             ['foo' => 'bar1', 'bar' => 'foo1'],
@@ -70,6 +68,7 @@ class Test extends Model
         ];
         halt($data);
     }
+
 
 
 

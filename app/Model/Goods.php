@@ -10,10 +10,7 @@ use think\facade\Db;
 
 class Goods extends Model
 {
-    
-    
     /** 
-     * insertGoodsFromExcel 
      * 
      * 把Excel里的goods信息插入到数据库 
      * 
@@ -37,7 +34,9 @@ class Goods extends Model
         $dataArr = $this->getExcelData($file_excel);
         // halt($dataArr);
         $goods = [];
+        //CODE:将二维关联数组转换为数据库数组
         foreach ($dataArr as $k => $v) {
+            //CODE：去除字符串内某个字符
             $count = strpos($v['B'], "-");
             $strlen = strlen('-');
             $goods[$k]['id'] = substr_replace($v['B'], "", $count, $strlen);
@@ -57,7 +56,6 @@ class Goods extends Model
             $goods[$k]['leader_commission'] = $v['M'] * 100;
             $goods[$k]['leader_income'] = $v['N'] * 100;
 
-            // break;
         }
         //获取数组最小下标
         for ($n = 0; $n < 100; $n++) {
@@ -69,46 +67,31 @@ class Goods extends Model
         for ($n; $n <= $k; $n++) {
             $this->create($goods[$n]);
         }
-        // halt($goods);
-        // return $goods[2];
-        //启动事务
-        // Db::startTrans();
-        // try {
-        // $this->saveAll($goods);
-        // 提交事务
-        // Db::commit();
-        // } catch (\Exception $e) {
-        // 回滚事务
-        // Db::rollback();
-        // return '失败';
-        // }
+
 
         return '成功';
     }
 
 
     /** 
-     * insertGoodsFromExcel 
      * 
      * 增量更新数据 
      * 
      * @param 
      * @return  
      */
-
+    
+    //CODE:增量更新数据
     public function incrementalUpdata()
     {
-
-
         /*更新数据*/
         //查询重复数据
         $same = Db::view(['goods' => 'a'], 'id,goods_id', 'a.id = b.id')
             ->view(['goods_temp' => 'b'])
             // ->where('a.order_number'=='b.order_number')
             ->select()->toArray();
-
         //更新语句
-        // $this->saveAll($same);
+        $this->saveAll($same);
 
         //删除临时表里的重复数据
         foreach ($same as $k => $v) {
@@ -125,7 +108,7 @@ class Goods extends Model
             Db::table('goods_temp')->where('id', $v['id'])->delete();
         }
         //获取数组最小下标
-        for ($n = 0; $n < 100; $n++) {
+        for ($n = 0; $n < $k; $n++) {
             if (array_key_exists($n, $data)) {
                 break;
             }

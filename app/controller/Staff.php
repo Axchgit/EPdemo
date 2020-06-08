@@ -7,18 +7,24 @@ use think\facade\View;
 use app\model\Staff as StaffModel;
 use app\model\Achievement as AchievementModel;
 
-use function PHPSTORM_META\type;
 
 class Staff extends BaseController
 {
+    public function staffLogin(){
+
+        if(isset($_POST['submit'])){
+            
+        }
+    }
+
 
     /** 
      * insertAchievement
      * 
-     * 添加订单绩效信息
+     * 员工添加绩效信息
      * 
-     * @param string $files
-     * @return html('upload_excel','staff_list')
+     * @return mixed
+
      */
 
     public function insertAchievement()
@@ -40,11 +46,20 @@ class Staff extends BaseController
         }
         return View::fetch('insert_goods_id');
     }
+    /**
+     * 
+     * 绩效信息列表
+     * 
+     * @return exit
+     */
+    
 
     public function achievementList(){
         $work_num = '0001';
+        // $audit_status = 0;
         $achievement = new AchievementModel();
         $data = $achievement->getAchievementData($work_num);
+        halt($data);
 
         
     }

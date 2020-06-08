@@ -20,6 +20,7 @@ class GoodsTemp extends Model
 
     public function insertGoodsTempFromExcel($files)
     {
+
         // 上传到本地服务器
         try {
             validate(['file' => 'fileSize:10240000|fileExt:xlsx,xls'])
@@ -56,11 +57,14 @@ class GoodsTemp extends Model
             $goods[$k]['leader_income'] = $v['N'] * 100;
         }
         //获取数组最小下标
-        for ($n = 0; $n < 100; $n++) {
+        for ($n = 0; $n < $k; $n++) {
             if (array_key_exists($n, $goods)) {
                 break;
             }
         }
+        //插入前删除所有数据
+        $this->where('id', '>=', '0')->delete();
+        //插入数据
         for ($n; $n <= $k; $n++) {
             // $this->save($goods[$n]);
             $this->create($goods[$n]);

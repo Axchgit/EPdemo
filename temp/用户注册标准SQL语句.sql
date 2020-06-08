@@ -21,12 +21,30 @@ CREATE TABLE staff (
   KEY `idx_create_time`(`create_time`,`user_review_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='网站用户基本信息';
 
+CREATE TABLE `staff_log` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `work_num` bigint(10) NOT NULL default '0' COMMENT '工号',
+  `nickname` varchar(45) NOT NULL default '' COMMENT '昵称',
+  `password` varchar(30) NOT NULL default '' COMMENT '登录密码',
+  `avatar` varchar(200) NOT NULL default '0' COMMENT '头像图片存放地址',
+  `short_introduce` varchar(150) not null DEFAULT '' COMMENT '一句话介绍自己，最多50个汉字',
+  `user_register_ip` int NOT NULL COMMENT '用户注册时的源ip',
+  `create_time` datetime NOT NULL default current_timestamp COMMENT '用户记录创建的时间',
+  `update_time` datetime default current_timestamp on update current_timestamp NOT NULL COMMENT '用户资料修改的时间',
+  `delete_time` datetime default null COMMENT '软删除标记',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_user_id` (`user_id`),
+  KEY `idx_username`(`username`),
+  KEY `idx_create_time`(`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工登录信息';
+
+
 
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键Id',
   `gmt_create` datetime NOT NULL COMMENT '创建时间',
-   `gmt_modified` datetime NOT NULL COMMENT '修改时间',
+  `gmt_modified` datetime NOT NULL COMMENT '修改时间',
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
   `age` int(11) DEFAULT NULL COMMENT '年龄',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
@@ -37,15 +55,18 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 CREATE TABLE staff (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `work_num` bigint(20) NOT NULL default '0' COMMENT '用户id',
+  `work_num` bigint(20) NOT NULL default '0' COMMENT '工号',
   `username` varchar(45) NOT NULL default '' COMMENT '真实姓名',
   `email` varchar(30) NOT NULL default '' COMMENT '用户邮箱',
-  `nickname` varchar(45) NOT NULL default '' COMMENT '昵称',
-  `avatar` varchar(200) NOT NULL default '0' COMMENT '头像图片存放地址',
+  -- `nickname` varchar(45) NOT NULL default '' COMMENT '昵称',
+  `avatar` varchar(200) NOT NULL default '' COMMENT '证件照存放地址',
+  `id_card` varchar(18) NOT NULL default '' COMMENT '身份证',
+  `bank_card` varchar(18) NOT NULL default '' COMMENT '银行卡',
   `birthday` date NOT NULL COMMENT '生日',
-  `sex` tinyint(4) not null DEFAULT '0' COMMENT '性别',
+  `sex` tinyint(4) not null DEFAULT '0' COMMENT '性别：1为男性，2为女性',
   `create_time` datetime NOT NULL default current_timestamp COMMENT '用户记录创建的时间',
   `update_time` datetime default current_timestamp on update current_timestamp NOT NULL COMMENT '用户资料修改的时间',
+  `delete_time` datetime default null COMMENT '软删除标记'
   `user_review_status` tinyint NOT NULL default '1' COMMENT '用户资料审核状态，1为通过，2为审核中，3为未通过，4为还未提交审核',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_work_num` (`work_num`),
