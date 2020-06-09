@@ -4,9 +4,10 @@
 use PHPMailer\PHPMailer\PHPMailer;
 
 
-/*发送邮件方法
- *@param $to：接收者 $title：标题 $content：邮件内容
- *@return bool true:发送成功 false:发送失败
+/**
+ * 发送邮件方法
+ * @param $to：接收者 $title：标题 $content：邮件内容
+ * @return bool true:发送成功 false:发送失败
  */
 function sendMail($to, $title, $content)
 {

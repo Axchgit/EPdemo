@@ -5,6 +5,7 @@ use app\BaseController;
 use app\model\User;
 use app\model\Goods as GoodsMOdel;
 use app\model\Test as TestModel;
+use think\facade\View;
 
 class Test extends BaseController
 {
@@ -29,7 +30,10 @@ class Test extends BaseController
 
     public function sendMailTest()
     {
-
+        if(isset($_POST['submit'])){
+            $email = request()->param('email');
+            // halt($email);
+            
         // 添加附件
         // $mailer->addFile('20130VL.jpg');
         // 邮件标题
@@ -51,7 +55,14 @@ class Test extends BaseController
 男儿重意气，何用钱刀为！</p>
 EOF;
         // 发送QQ邮件
-        $mailer = sendMail('928156263@qq.com', $title, $content);
+        if(sendMail($email, $title, $content)){
+            return View::fetch('success');
+        }
+        
+
+        }
+        return View::fetch('send_mail');
+
     }
 
 
