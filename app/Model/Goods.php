@@ -55,21 +55,23 @@ class Goods extends Model
             $goods[$k]['salesman_commission'] = $v['L'] * 100;
             $goods[$k]['leader_commission'] = $v['M'] * 100;
             $goods[$k]['leader_income'] = $v['N'] * 100;
-
         }
-        //获取数组最小下标
-        for ($n = 0; $n < 100; $n++) {
-            if (array_key_exists($n, $goods)) {
-                break;
-            }
-        }
-        //遍历新增
-        for ($n; $n <= $k; $n++) {
-            $this->create($goods[$n]);
-        }
-
-
+        $this->insertAll($goods);
+        //TODO:返回数据优化
         return '成功';
+
+        //CODE:获取数组最小下标
+        // for ($n = 0; $n < 100; $n++) {
+        //     if (array_key_exists($n, $goods)) {
+        //         break;
+        //     }
+        // }
+
+        //CODE:遍历新增
+        // for ($n; $n <= $k; $n++) {
+        //     $this->create($goods[$n]);
+        // }
+
     }
 
 
@@ -80,7 +82,7 @@ class Goods extends Model
      * @param 
      * @return  
      */
-    
+
     //CODE:增量更新数据
     public function incrementalUpdata()
     {
@@ -102,22 +104,21 @@ class Goods extends Model
 
         //查询剩余数据
         $data = Db::table('goods_temp')->select()->toArray();
+        if (empty($data)) {
+            //TODO:返回数据优化
+            return '无新增';
+        }
 
         //删除临时表里的剩余数据
-        foreach ($data as $k => $v) {
-            Db::table('goods_temp')->where('id', $v['id'])->delete();
-        }
-        //获取数组最小下标
-        for ($n = 0; $n < $k; $n++) {
-            if (array_key_exists($n, $data)) {
-                break;
-            }
-        }
+        $this->delete(true);
+
+        // foreach ($data as $k => $v) {
+        //     Db::table('goods_temp')->where('id', $v['id'])->delete();
+        // }
+
         //插入新增数据到goods
-        for ($n; $n <= $k; $n++) {
-            // $this->save($goods[$n]);
-            $this->create($data[$n]);
-        }
+        $this->insertAll($data);
+        //TODO:返回数据优化
         return '成功';
     }
 
@@ -129,7 +130,7 @@ class Goods extends Model
 
 
 
-    
+
     /** 
      * getExcelData 
      * 

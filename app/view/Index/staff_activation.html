@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工账户激活</title>
+</head>
+
+<body>
+    <form action="staffLoginActivation" method="post" enctype="multipart/form-data">
+        <div>
+            <p>此操作将会向你的员工邮箱发送激活链接，点击链接即可激活</p>
+            <p>你的工号为:{$data.work_num}</p>
+            <span>
+                <input type="submit" value="确认提交" name="submit">
+
+        </span>
+        </div>
+    </form>
+</body>
+
+</html>

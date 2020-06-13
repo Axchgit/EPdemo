@@ -17,7 +17,7 @@ return [
     //发件人地址
     'from'          => '1027854092@qq.com', 
     //发件人姓名
-    'from_name'     => '邢晨浩', 
+    'from_name'     => '学创网络', 
     //邮箱密码切记是邮箱授权码
     'password'      => 'jymsvcmwcmrbbfcj', 
     //设置邮件编码

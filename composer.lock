@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f628208b99c819d340b32317ea47c24",
+    "content-hash": "90bba2c4df004a00a2bbade832916718",
     "packages": [
         {
             "name": "league/flysystem",
@@ -154,6 +154,65 @@
             ],
             "description": "An adapter decorator to enable meta-data caching.",
             "time": "2018-07-09T20:51:04+00:00"
+        },
+        {
+            "name": "liliuwei/thinkphp-jump",
+            "version": "1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liliuwei/thinkphp-jump.git",
+                "reference": "481d41b922095f08230609919be5d19354c50540"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liliuwei/thinkphp-jump/zipball/481d41b922095f08230609919be5d19354c50540",
+                "reference": "481d41b922095f08230609919be5d19354c50540",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "topthink/framework": "^6.0",
+                "topthink/think-view": "^1.0"
+            },
+            "type": "think-extend",
+            "extra": {
+                "think": {
+                    "config": {
+                        "jump": "src/config/jump.php"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "liliuwei\\think\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "liliuwei",
+                    "email": "974829947@qq.com"
+                }
+            ],
+            "description": "适用于thinkphp6.0的跳转扩展",
+            "keywords": [
+                "error",
+                "redirect",
+                "result",
+                "success",
+                "think-jump",
+                "thinkphp"
+            ],
+            "time": "2020-03-20T15:11:56+00:00"
         },
         {
             "name": "opis/closure",
@@ -646,6 +705,61 @@
                 "thinkphp"
             ],
             "time": "2020-01-13T05:48:05+00:00"
+        },
+        {
+            "name": "topthink/think-captcha",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/top-think/think-captcha.git",
+                "reference": "1eef3717c1bcf4f5bbe2d1a1c704011d330a8b55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/top-think/think-captcha/zipball/1eef3717c1bcf4f5bbe2d1a1c704011d330a8b55",
+                "reference": "1eef3717c1bcf4f5bbe2d1a1c704011d330a8b55",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "topthink/framework": "^6.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "think": {
+                    "services": [
+                        "think\\captcha\\CaptchaService"
+                    ],
+                    "config": {
+                        "captcha": "src/config.php"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "think\\captcha\\": "src/"
+                },
+                "files": [
+                    "src/helper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "yunwuxin",
+                    "email": "448901948@qq.com"
+                }
+            ],
+            "description": "captcha package for thinkphp",
+            "time": "2020-05-19T10:55:45+00:00"
         },
         {
             "name": "topthink/think-helper",

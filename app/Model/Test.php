@@ -69,6 +69,10 @@ class Test extends Model
         halt($data);
     }
 
+    public function test(){
+        halt(time());
+    }
+
 
 
 

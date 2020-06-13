@@ -17,3 +17,5 @@ Route::get('think', function () {
 // Route::get('hello/:name', 'Index/hello');
 
 // Route::get('test/:id','Address/test');
+Route::get('activation/:work_num/:activation_code','Index/activationUrl');
+

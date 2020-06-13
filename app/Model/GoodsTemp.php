@@ -57,19 +57,21 @@ class GoodsTemp extends Model
             $goods[$k]['leader_income'] = $v['N'] * 100;
         }
         //获取数组最小下标
-        for ($n = 0; $n < $k; $n++) {
-            if (array_key_exists($n, $goods)) {
-                break;
-            }
-        }
+        // for ($n = 0; $n < $k; $n++) {
+        //     if (array_key_exists($n, $goods)) {
+        //         break;
+        //     }
+        // }
         //插入前删除所有数据
-        $this->where('id', '>=', '0')->delete();
+        $this->delete(true);
         //插入数据
-        for ($n; $n <= $k; $n++) {
-            // $this->save($goods[$n]);
-            $this->create($goods[$n]);
-            // echo($n);
-        }
+        $this->insertAll($goods);
+
+        // for ($n; $n <= $k; $n++) {
+        //     // $this->save($goods[$n]);
+        //     $this->create($goods[$n]);
+        //     // echo($n);
+        // }
 
         return '成功';
     }

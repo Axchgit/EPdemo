@@ -8,8 +8,10 @@ use app\model\Goods as GoodsModel;
 use app\model\GoodsTemp as GoodsTempModel;
 use app\model\Staff as StaffModel;
 
-class Admin
-{
+class Admin extends AdminBase{
+
+
+
 
     /** 
      * insertGoodsFromExcel 
@@ -82,11 +84,25 @@ class Admin
         return View::fetch('upload_staff_excel');
     }
 
+    public function incrementalUpdata(){
+        $goods_model = new GoodsModel();
+        return $goods_model->incrementalUpdata();
+    }
+
+
+    public function adminLogin(){
+
+        
+    }
+
 
 
     public function test()
     {
-        return time();
+        header("location:sfsdf");
+        // view('index');
+        // halt('1324234235432123432532523');
+        // return time();
     }
 
 
