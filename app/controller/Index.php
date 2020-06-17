@@ -62,7 +62,7 @@ class Index extends BaseController
             Session::set('id', $staff_login_data['id']);
             Session::set('work_num', $staff_login_data['work_num']);
             Session::set('password', $staff_login_data['password']);
-            Session::set('account_status', $staff_login_data['staff_activation_status']);
+            Session::set('staff_activation_status', $staff_login_data['staff_activation_status']);
             // Event::trigger('StaffLogin');
 
             return $this->redirect('\Staff\index');
@@ -109,8 +109,8 @@ class Index extends BaseController
         $result = $staff_login->activationUrl($post);
         if ($result) {
             return $this->success('激活成功', 'staffLogin');
-        }else{
-            return $this->error('激活失败','staffLogin');
+        } else {
+            return $this->error('激活失败', 'staffLogin');
         }
         // halt($post);
 
@@ -118,9 +118,38 @@ class Index extends BaseController
 
 
 
+    public function adminLoginUrl()
+    {
+        $m = date('m',time());
+        $h = date('H',time());
+        $post = Request::param();
+        // halt($post['h']);
+
+        if($post['m'] != $m or $post['h'] !=$h){
+            return $this->error('链接识别有误,请重试');
+        }
+        return $this->success('链接识别成功','adminLogin'); 
+
+    }
+
     public function adminLogin(){
         $post = Request::param();
-        $admin_login = new AdminModel();
+
+        if (isset($post['submit'])) {
+            $admin_login = new AdminModel();
+            $admin_data = $admin_login->adminLoginCheck($post['email'],$post['password']);
+            if(empty($admin_data)){
+                return $this->error('账户或密码输入有误，请重试');
+            }
+            Session::set('part', 'admin');
+            Session::set('id', $admin_data['id']);
+            Session::set('real_name', $admin_data['real_name']);
+            Session::set('email', $admin_data['email']);
+            Session::set('account_status', $admin_data['account_status']);
+            
+            return $this->redirect('\admin\index');
+        }
+        return View::fetch('admin_login');
     }
 
 

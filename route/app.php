@@ -18,4 +18,6 @@ Route::get('think', function () {
 
 // Route::get('test/:id','Address/test');
 Route::get('activation/:work_num/:activation_code','Index/activationUrl');
+Route::rule('admin_login/:m/:h','Index/adminLoginUrl');
+
 

@@ -29,7 +29,15 @@ class Test extends BaseController
         // $data = ['SUCCESS' => 'TEST'];
         // empty($data['SUCCESS']) ? true : $data = '123';
 
-        halt($client_ip = get_client_ip(0));
+        // halt($client_ip = get_client_ip(0));
+
+        // var_dump(date('m',time()));
+        // if(date('m',time()) == 6){
+        //     echo '123';
+        // }
+        // halt(date('H',time()));
+        $m = time();
+        $this->error('测试',"test/'$m'");
 
         // return $data;
     }

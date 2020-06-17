@@ -95,6 +95,10 @@ class Admin extends AdminBase{
         
     }
 
+    public function index(){
+        return View::fetch();   
+    }
+
 
 
     public function test()
