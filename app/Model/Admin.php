@@ -9,5 +9,6 @@ use think\facade\Db;
 
 class Admin extends Model
 {
+    public 
 
 }

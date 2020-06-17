@@ -7,6 +7,7 @@ use think\facade\View;
 use think\facade\Request;
 use app\model\Staff as StaffModel;
 use app\model\StaffLogin as StaffLoginModel;
+use app\model\Admin as AdminModel;
 use think\facade\Session;
 use think\facade\Event;
 
@@ -115,6 +116,12 @@ class Index extends BaseController
 
     }
 
+
+
+    public function adminLogin(){
+        $post = Request::param();
+        $admin_login = new AdminModel();
+    }
 
 
 
