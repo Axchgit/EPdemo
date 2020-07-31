@@ -18,6 +18,8 @@ class StaffBase extends BaseController
             $this->error('你还没有登陆，请登录', 'Index/staffLogin');
         } elseif ($session['account_status'] == 2) {
             $this->error('你的账户还未激活，请先激活', 'Index/StaffLoginActivation');
+        }elseif($session['part']!='staff'){
+            $this->error('请使用员工账户登录', 'Index/StaffLogin');
         }
         // return $this->redirect('Index/staffLogin');
 
