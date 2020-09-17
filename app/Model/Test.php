@@ -77,11 +77,9 @@ class Test extends Model
 
     }
 
-    public function test1(){
+    public function test2(){
         echo '123';
     }
-    shit
-
 
 
 
