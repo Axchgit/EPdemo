@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test">
+        <span>
+            {{name}}
+        </span>
+        <input value="点击显示名字" type="button" @click='getFromApi'>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 官网提供的 axios 在线地址 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            var vm = new Vue({
+                el: "#test",
+                data: {
+                    name: ''
+                },
+                methods: {
+                    getFromApi() {
+                        axios.get('testApi').then(response => {
+                            // 保存内容
+                            this.name = response.data.name;
+
+                        })
+                    }
+                }
+
+            })
+        }
+    </script>
+</body>
+
+</html>

@@ -73,9 +73,6 @@ class Test extends Model
         halt(time());
     }
 
-    public function test1(){
-
-    }
 
     public function test2(){
         echo '123';

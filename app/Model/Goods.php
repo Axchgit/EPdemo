@@ -105,11 +105,12 @@ class Goods extends Model
         //查询剩余数据
         $data = Db::table('goods_temp')->select()->toArray();
         if (empty($data)) {
-            //TODO:返回数据优化
+            //返回数据优化
             return '无新增';
         }
 
         //删除临时表里的剩余数据
+        //FIXME:
         $this->delete(true);
 
         // foreach ($data as $k => $v) {

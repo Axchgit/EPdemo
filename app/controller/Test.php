@@ -9,6 +9,8 @@ use app\model\Test as TestModel;
 use think\facade\View;
 use think\facade\Request;
 
+use Firebase\JWT\JWT;
+
 class Test extends BaseController
 {
 
@@ -103,6 +105,41 @@ class Test extends BaseController
         return View::fetch('send_mail');
     }
 
+
+
+    public function testApi(){
+        $token = Request::header('Authorization');
+                $token =  signToken("fasdfsdfds-fgfg3sdfsd-r3dfsfdsf");
+        $url ="http://localhost/epdemo/public/index.php/test/testApi";
+        $data = ['name' => 'thinkphp', 'status' => '1' , 'token' => $token];
+        $data =["code"=>0,"msg"=>'成功',"data"=>["list"=>$data]];
+
+    // $data = {
+    //         // 接口约定的状态码 非 http 状态码
+    //         code: 0,
+    //         // 接口返回请求状态信息
+    //         msg: '返回信息',
+    //         // data 内才是真正的返回数据
+    //         data: {
+    //           list: [
+    //           ]
+    //         }
+    //       }
+    // $token =  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIhQCMkJSomIiwiYXVkIjoiIiwiaWF0IjoxNTk3MjQ1NDA4LCJuYmYiOjE1OTcyNDU0MTEsImV4cCI6MTU5NzQ0NTQwOCwiZGF0YSI6eyJ1aWQiOjIzMTEyfX0.zF3pZpsPKZjGRrxzfsjjdAcJQ9RpzZNQrDb2wvtK4o0b";
+        // $token =  signToken(23112);
+        // $res = $token + 'a';
+        $result = checkToken($token); 
+        // return json($token);
+        // halt($result);
+        return json($result);
+        // return time()+200;
+
+        return json($data);
+    }
+
+    public function testApiView(){
+        return View::fetch('vue');
+    }
 
 
 
